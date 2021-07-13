@@ -1,4 +1,6 @@
 // Plugin integration points. All exports must be objects or arrays so they can be mutated by plugins.
+const PluginPlaceholder = () => null;
+const noop = () => {};
 
 // functions called when the application is started
 export const PLUGIN_APP_INIT_FUCTIONS = [];
@@ -52,4 +54,9 @@ export const PLUGIN_SNIPPET_SIDEBAR_HEADER_BUTTONS = [];
 
 export const PLUGIN_DASHBOARD_SUBSCRIPTION_PARAMETERS_SECTION_OVERRIDE = {
   Component: undefined,
+};
+
+export const PLUGIN_MODERATION = {
+  ModerationActions: PluginPlaceholder,
+  verifyItem: noop,
 };
