@@ -58,10 +58,9 @@ export const PLUGIN_DASHBOARD_SUBSCRIPTION_PARAMETERS_SECTION_OVERRIDE = {
 };
 
 export const PLUGIN_MODERATION = {
-  ModerationActions: PluginPlaceholder,
-  ModerationReviewBanner: PluginPlaceholder,
+  QuestionModerationSection: PluginPlaceholder,
 
-  verifyItem: noop,
   getVerifiedIcon: noop,
   getIconForReview: object,
+  getLatestModerationReview: noop,
 };
