@@ -1,6 +1,5 @@
 // Plugin integration points. All exports must be objects or arrays so they can be mutated by plugins.
 const PluginPlaceholder = () => null;
-const noop = () => {};
 const object = () => ({});
 
 // functions called when the application is started
@@ -59,8 +58,5 @@ export const PLUGIN_DASHBOARD_SUBSCRIPTION_PARAMETERS_SECTION_OVERRIDE = {
 
 export const PLUGIN_MODERATION = {
   QuestionModerationSection: PluginPlaceholder,
-
-  getVerifiedIcon: noop,
-  getIconForReview: object,
-  getLatestModerationReview: noop,
+  getStatusIconForReviews: object,
 };
