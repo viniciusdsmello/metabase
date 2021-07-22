@@ -3,6 +3,7 @@ import React from "react";
 import { Box, Flex } from "grid-styled";
 import { t } from "ttag";
 import { connect } from "react-redux";
+import { push } from "react-router-redux";
 import cx from "classnames";
 
 import title from "metabase/hoc/Title";
@@ -41,6 +42,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = {
   saveDashboard: Dashboards.actions.save,
+  onChangeLocation: push,
 };
 
 @connect(
@@ -96,6 +98,7 @@ class AutomaticDashboardApp extends React.Component {
       parameterValues,
       setParameterValue,
       location,
+      onChangeLocation,
     } = this.props;
     const { savedDashboardId } = this.state;
     // pull out "more" related items for displaying as a button at the bottom of the dashboard
@@ -149,9 +152,10 @@ class AutomaticDashboardApp extends React.Component {
                     value: parameterValues && parameterValues[p.id],
                   }))}
                   location={location}
-                  setParameterValue={setParameterValue}
                   syncQueryString
                   isQB
+                  setParameterValue={setParameterValue}
+                  onChangeLocation={onChangeLocation}
                 />
               </div>
             )}

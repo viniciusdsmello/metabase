@@ -77,6 +77,7 @@ type Props = {
   readOnly?: boolean,
 
   location: LocationDescriptor,
+  onChangeLocation: (url: string) => void,
 
   question: Question,
   query: NativeQuery,
@@ -487,6 +488,7 @@ export default class NativeQueryEditor extends Component {
       isPreviewing,
       snippetCollections,
       snippets,
+      onChangeLocation,
     } = this.props;
 
     const database = query.database();
@@ -581,6 +583,7 @@ export default class NativeQueryEditor extends Component {
             isEditing
             isQB
             commitImmediately
+            onChangeLocation={onChangeLocation}
           />
           {query.hasWritePermission() && (
             <div

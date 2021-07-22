@@ -21,9 +21,15 @@ export default class Parameters extends Component {
   }
 
   componentDidUpdate() {
-    const { parameters, parameterValues, location } = this.props;
+    const {
+      parameters,
+      parameterValues,
+      location,
+      syncQueryString,
+      onChangeLocation,
+    } = this.props;
 
-    if (this.props.syncQueryString) {
+    if (syncQueryString) {
       // sync parameters to URL query string
       const queryParams = {};
       for (const parameter of collateParametersWithValues(
@@ -39,11 +45,7 @@ export default class Parameters extends Component {
       search = search ? "?" + search : "";
 
       if (search !== location.search) {
-        history.replaceState(
-          null,
-          document.title,
-          location.pathname + search + location.hash,
-        );
+        onChangeLocation(location.pathname + search + location.hash);
       }
     }
   }

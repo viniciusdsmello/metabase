@@ -285,6 +285,7 @@ export default class Dashboard extends Component {
           setParameterDefaultValue={this.props.setParameterDefaultValue}
           removeParameter={this.props.removeParameter}
           setParameterValue={this.props.setParameterValue}
+          onChangeLocation={this.props.onChangeLocation}
         />
       );
     }
