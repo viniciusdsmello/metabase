@@ -100,7 +100,7 @@
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
     "@cypress/skip-test": "^2.6.0",
-    "@cypress/webpack-preprocessor": "^4.1.0",
+    "@cypress/webpack-preprocessor": "^5.9.1",
     "@slack/client": "^3.5.4",
     "@testing-library/cypress": "^5.0.2",
     "@testing-library/dom": "^7.29.0",
