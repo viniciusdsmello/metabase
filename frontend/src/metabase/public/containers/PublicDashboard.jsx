@@ -137,6 +137,7 @@ export default class PublicDashboard extends Component {
       parameterValues,
       isFullscreen,
       isNightMode,
+      onChangeLocation,
     } = this.props;
     const buttons = !IFRAMED
       ? getDashboardActions(this, { ...this.props, isPublic: true })
@@ -153,6 +154,7 @@ export default class PublicDashboard extends Component {
         actionButtons={
           buttons.length > 0 && <div className="flex">{buttons}</div>
         }
+        onChangeLocation={onChangeLocation}
       >
         <LoadingAndErrorWrapper
           className={cx("Dashboard p1 flex-full", {

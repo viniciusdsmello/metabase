@@ -30,7 +30,7 @@ type Props = {
   description?: string,
   dashboard?: DashboardWithCards,
   location: { query: { [key: string]: string }, hash: string },
-  router: { push: (url: string) => void },
+  onChangeLocation: (url: string) => void,
   parameters?: Parameter[],
   parameterValues?: { [key: string]: string },
   setParameterValue: (id: string, value: string) => void,
@@ -61,7 +61,7 @@ export default class EmbedFrame extends Component {
       description,
       actionButtons,
       location,
-      router,
+      onChangeLocation,
       parameters,
       parameterValues,
       setParameterValue,
@@ -107,6 +107,7 @@ export default class EmbedFrame extends Component {
                     location={location}
                     setParameterValue={setParameterValue}
                     setMultipleParameterValues={setMultipleParameterValues}
+                    onChangeLocation={onChangeLocation}
                     syncQueryString
                     hideParameters={hide_parameters}
                     isQB

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { push } from "react-router-redux";
 
 import Visualization from "metabase/visualizations/components/Visualization";
 import QueryDownloadWidget from "metabase/query_builder/components/QueryDownloadWidget";
@@ -60,6 +61,7 @@ const mapDispatchToProps = {
   setErrorPage,
   addParamValues,
   addFields,
+  onChangeLocation: push,
 };
 
 @connect(
@@ -195,6 +197,7 @@ export default class PublicQuestion extends Component {
   render() {
     const {
       params: { uuid, token },
+      onChangeLocation,
     } = this.props;
     const { card, result, initialized, parameterValues } = this.state;
 
@@ -218,6 +221,7 @@ export default class PublicQuestion extends Component {
         parameterValues={parameterValues}
         setParameterValue={this.setParameterValue}
         setMultipleParameterValues={this.setMultipleParameterValues}
+        onChangeLocation={onChangeLocation}
       >
         <LoadingAndErrorWrapper
           className="flex-full"
