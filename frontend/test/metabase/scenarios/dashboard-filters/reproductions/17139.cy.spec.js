@@ -11,7 +11,7 @@ import {
 
 import { setMonthAndYear } from "../../native-filters/helpers/e2e-date-filter-helpers";
 
-describe.skip("issue 17139", () => {
+describe("issue 17139", () => {
   beforeEach(() => {
     restore();
     cy.signInAsAdmin();
