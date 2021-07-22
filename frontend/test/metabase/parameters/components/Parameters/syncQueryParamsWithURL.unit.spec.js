@@ -34,8 +34,10 @@ describe("Parameters", () => {
       describe("when parameters length is 0", () => {
         const props = buildPropsForInternalQuestion({
           parameters: [],
-          query: {
-            createdAt: "2021",
+          location: {
+            query: {
+              createdAt: "2021",
+            },
           },
         });
 
@@ -53,8 +55,10 @@ describe("Parameters", () => {
               slug: "slugNotKeyInQuery",
             },
           ],
-          query: {
-            createdAt: "2021",
+          location: {
+            query: {
+              createdAt: "2021",
+            },
           },
         });
 
@@ -72,8 +76,10 @@ describe("Parameters", () => {
               slug: "createdAt",
             },
           ],
-          query: {
-            createdAt: "2021",
+          location: {
+            query: {
+              createdAt: "2021",
+            },
           },
         });
 
@@ -99,9 +105,11 @@ describe("Parameters", () => {
               slug: "state",
             },
           ],
-          query: {
-            createdAt: "2021",
-            state: "CA",
+          location: {
+            query: {
+              createdAt: "2021",
+              state: "CA",
+            },
           },
         });
 
@@ -124,8 +132,10 @@ describe("Parameters", () => {
       describe("when parameters length is 0", () => {
         const props = buildPropsForPublicQuestion({
           parameters: [],
-          query: {
-            createdAt: "2021",
+          location: {
+            query: {
+              createdAt: "2021",
+            },
           },
         });
 
@@ -144,8 +154,10 @@ describe("Parameters", () => {
               slug: "slugNotKeyInQuery",
             },
           ],
-          query: {
-            createdAt: "2021",
+          location: {
+            query: {
+              createdAt: "2021",
+            },
           },
         });
 
@@ -163,8 +175,10 @@ describe("Parameters", () => {
               slug: "createdAt",
             },
           ],
-          query: {
-            createdAt: "2021",
+          location: {
+            query: {
+              createdAt: "2021",
+            },
           },
         });
 
@@ -189,9 +203,11 @@ describe("Parameters", () => {
               slug: "state",
             },
           ],
-          query: {
-            createdAt: "2021",
-            state: "CA",
+          location: {
+            query: {
+              createdAt: "2021",
+              state: "CA",
+            },
           },
         });
 
