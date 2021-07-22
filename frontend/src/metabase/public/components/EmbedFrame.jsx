@@ -102,7 +102,7 @@ export default class EmbedFrame extends Component {
                       ...p,
                       value: parameterValues && parameterValues[p.id],
                     }))}
-                    query={location.query}
+                    location={location}
                     setParameterValue={setParameterValue}
                     setMultipleParameterValues={setMultipleParameterValues}
                     syncQueryString

@@ -574,7 +574,7 @@ export default class NativeQueryEditor extends Component {
           {dataSelectors}
           <Parameters
             parameters={parameters}
-            query={location.query}
+            location={location}
             setParameterValue={setParameterValue}
             setParameterIndex={this.setParameterIndex}
             syncQueryString

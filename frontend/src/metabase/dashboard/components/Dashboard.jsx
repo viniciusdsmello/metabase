@@ -277,7 +277,7 @@ export default class Dashboard extends Component {
             ...p,
             value: parameterValues[p.id],
           }))}
-          query={location.query}
+          location={location}
           editingParameter={editingParameter}
           setEditingParameter={this.props.setEditingParameter}
           setParameterName={this.props.setParameterName}

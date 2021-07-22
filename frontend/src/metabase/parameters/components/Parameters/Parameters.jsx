@@ -21,7 +21,7 @@ export default class Parameters extends Component {
   }
 
   componentDidUpdate() {
-    const { parameters, parameterValues } = this.props;
+    const { parameters, parameterValues, location } = this.props;
 
     if (this.props.syncQueryString) {
       // sync parameters to URL query string
@@ -38,11 +38,11 @@ export default class Parameters extends Component {
       let search = querystring.stringify(queryParams);
       search = search ? "?" + search : "";
 
-      if (search !== window.location.search) {
+      if (search !== location.search) {
         history.replaceState(
           null,
           document.title,
-          window.location.pathname + search + window.location.hash,
+          location.pathname + search + location.hash,
         );
       }
     }

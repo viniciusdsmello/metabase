@@ -7,7 +7,12 @@ export const syncQueryParamsWithURL = props => {
 };
 
 const syncForInternalQuestion = props => {
-  const { parameters, setParameterValue, query, metadata } = props;
+  const {
+    parameters,
+    setParameterValue,
+    location: { query },
+    metadata,
+  } = props;
 
   if (!setParameterValue) {
     return;
@@ -25,7 +30,12 @@ const syncForInternalQuestion = props => {
 };
 
 const syncForPublicQuestion = props => {
-  const { parameters, setMultipleParameterValues, query, metadata } = props;
+  const {
+    parameters,
+    setMultipleParameterValues,
+    location: { query },
+    metadata,
+  } = props;
 
   if (!setMultipleParameterValues) {
     return;

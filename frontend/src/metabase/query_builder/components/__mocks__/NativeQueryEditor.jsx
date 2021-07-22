@@ -6,7 +6,7 @@ import Parameters from "metabase/parameters/components/Parameters/Parameters";
 const MockNativeQueryEditor = ({ location, query, setParameterValue }) => (
   <Parameters
     parameters={query.question().parameters()}
-    query={location.query}
+    location={location}
     setParameterValue={setParameterValue}
     syncQueryString
     isQB
