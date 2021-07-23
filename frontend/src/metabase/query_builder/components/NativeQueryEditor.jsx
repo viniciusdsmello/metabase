@@ -77,7 +77,6 @@ type Props = {
   readOnly?: boolean,
 
   location: LocationDescriptor,
-  onChangeLocation: (url: string) => void,
 
   question: Question,
   query: NativeQuery,
@@ -439,6 +438,10 @@ export default class NativeQueryEditor extends Component {
     }
   }
 
+  onChangeLocation = (location: string) => {
+    history.replaceState(null, document.title, location);
+  };
+
   toggleEditor = () => {
     this.props.setIsNativeEditorOpen(!this.props.isNativeEditorOpen);
   };
@@ -488,7 +491,6 @@ export default class NativeQueryEditor extends Component {
       isPreviewing,
       snippetCollections,
       snippets,
-      onChangeLocation,
     } = this.props;
 
     const database = query.database();
@@ -583,7 +585,7 @@ export default class NativeQueryEditor extends Component {
             isEditing
             isQB
             commitImmediately
-            onChangeLocation={onChangeLocation}
+            onChangeLocation={this.onChangeLocation}
           />
           {query.hasWritePermission() && (
             <div
