@@ -1,0 +1,88 @@
+name: MetabotCherryPick
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  check_if_should_cherry_pick:
+    name: Check if the commit should be cherry-picked
+    runs-on: ubuntu-latest
+    outputs:
+      should_cherry_pick: ${{ steps.get_should_cherry_pick.outputs.result }}
+    steps:
+      - uses: actions/github-script@v4
+        id: get_should_cherry_pick
+        with:
+          result-encoding: string
+          script: |
+            const commitMessage = context.payload.commits[0].message;
+            const pullRequestNumbers = Array.from(commitMessage.matchAll(/\(#(.*?)\)/g))
+
+            if (pullRequestNumbers.length === 0) {
+              return false;
+            }
+
+            if (pullRequestNumbers > 1) {
+              throw "Multiple PRs are associated with this commit";
+            }
+
+            const pullRequestNumber = pullRequestNumbers[0][1];
+
+            const { data } = await github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullRequestNumber
+            });
+
+            return data.labels.some((label) => label.name === 'cherry-pick')
+
+  get_latest_release_branch:
+    name: Get latest release branch
+    runs-on: ubuntu-latest
+    outputs:
+      branch_name: ${{ steps.get_branch_name.outputs.result }}
+    steps:
+      - uses: actions/github-script@v4
+        id: get_branch_name
+        with:
+          result-encoding: string
+          script: |
+            const releaseBranches = await github.git.listMatchingRefs({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "heads/release-x.",
+            });
+
+            const getVersionFromBranch = branch => parseInt(branch.match(/release-x\.(.*?)\.x/)[1]);
+            const latestReleaseBranch = releaseBranches.data.reduce((prev, current) => getVersionFromBranch(prev.ref) > getVersionFromBranch(current.ref) ? prev : current);
+            const latestReleaseBranchName = latestReleaseBranch.ref.replace(/^refs\/heads\//, "");
+
+            console.log(`Latest release branch: ${latestReleaseBranchName}`)
+
+            return latestReleaseBranchName;
+
+  create_release_pull_request:
+    runs-on: ubuntu-latest
+    name: Create a PR with the commit
+    needs: [check_if_should_cherry_pick, get_latest_release_branch]
+    env:
+      RELEASE_BRANCH: ${{ needs.get_latest_release_branch.outputs.branch_name }}
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+      - run: |
+          git config user.name github-actions
+          git config user.email alxnddr@gmail.com
+
+          PR_BRANCH="cherry-pick-$GITHUB_SHA"
+
+          git fetch --all
+          git checkout -b "${PR_BRANCH}" origin/"${RELEASE_BRANCH}"
+          git cherry-pick "${GITHUB_SHA}"
+          git push -u origin "${PR_BRANCH}"
+
+          PR_TITLE=$(git log -1 --format="%s" $GITHUB_SHA)
+
+          hub pull-request -b "${RELEASE_BRANCH}" -h "${PR_BRANCH}" -l "auto-cherry-picked" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${PR_TITLE}\""
